@@ -8,10 +8,14 @@ from mystyle import print_banner, print_text
 from models import RBM, WavefunctionRBM
 from qst_definition import MeasurementRecord, fidelity
 
+def polarization_to_Z(polarization):
+    return [{"H": 1.0, "V": -1.0}[char] for char in list(polarization)]
+
+#z_pseudo_shots = [polarization_to_Z(record.outcome) for record in z_measurements]
 # k_cd : # of steps of CD
 def train_amplitude_network(wf_rbm, z_measurements, n_epochs, lr, target_rho, k_cd, batch_size):
     print_banner("Amplitude Network")
-    z_eigenvalues = [[{"H": 1.0, "V": -1.0}[p] for p in record.polarization] for record in z_measurements]
+    z_eigenvalues = [polarization_to_Z(record.polarization) for record in z_measurements]
     device = next(wf_rbm.parameters()).device
     data_tensor = torch.tensor(z_eigenvalues, dtype=wf_rbm.rbm_amp.a.dtype, device=device)
     dataloader = DataLoader(TensorDataset(data_tensor), batch_size=batch_size, shuffle=True)
