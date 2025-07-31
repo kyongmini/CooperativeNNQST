@@ -15,9 +15,9 @@ def print_text(text: str):
 def my_style(fontsize=12, a_font='STIX Two Text'):
     """Sets a custom matplotlib my style"""
 
-    plt.rcParams.update(
-        {'font.family': 'sans-serif',         
-        'font.sans-serif': ['Arial'],        
+    plt.rcParams.update({
+        'font.family': "sans-serif",
+        'font.sans-serif': ["DejaVu Sans", "Liberation Sans", "STIX Two Text"],     
         'mathtext.fontset': 'custom',        
         'mathtext.rm': 'Arial',              
         'mathtext.it': 'Arial:italic',       
